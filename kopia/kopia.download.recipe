@@ -8,6 +8,11 @@
         </string>
         <key>Identifier</key>
         <string>com.github.kyle-humane.download.kopia</string>
+        <key>Input</key>
+        <dict>
+            <key>NAME</key>
+            <string>kopia</string>
+        </dict>
         <key>MinimumVersion</key>
         <string>0.2.0</string>
         <key>Process</key>
