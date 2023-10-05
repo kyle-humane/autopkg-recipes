@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads the latest version of SentinelOne for macOS.
+		This recipe requires an Api Token and the hostname of your SentinelOne instance.</string>
+	<key>Identifier</key>
+	<string>com.github.kyle-humane.download.SentinelOne</string>
+	<key>Input</key>
+	<dict>
+		<key>SentinelOne-Api-Token</key>
+		<string></string>
+		<key>SentinelOne-Hostname</key>
+		<string></string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>re_pattern</key>
+				<string>"link":"(.*?)"</string>
+				<key>url</key>
+				<string>https://%SentinelOne-Hostname%/web/api/v2.1/update/agent/packages?osTypes=macos&amp;sortBy=version&amp;platformTypes=macos&amp;fileExtension=.pkg&amp;countOnly=false&amp;sortOrder=desc&amp;limit=1</string>
+				<key>request_headers</key>
+				<dict>
+					<key>Authorization</key>
+					<string>ApiToken %SentinelOne-Api-Token%</string>
+				</dict>
+				<key>result_output_var_name</key>
+				<string>url</string>
+			</dict>
+			<key>Processor</key>
+			<string>URLTextSearcher</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>prefetch_filename</key>
+				<true/>
+				<key>request_headers</key>
+				<dict>
+					<key>Authorization</key>
+					<string>ApiToken %SentinelOne-Api-Token%</string>
+				</dict>
+			</dict>
+			<key>Processor</key>
+			<string>URLDownloader</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>source_path</key>
+				<string>%pathname%</string>
+				<key>destination_path</key>
+				<string>%pathname%.pkg</string>
+			</dict>
+			<key>Processor</key>
+			<string>Copier</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/downloads/sentinelone/</string>
+				<key>flat_pkg_path</key>
+				<string>%pathname%.pkg</string>
+			</dict>
+			<key>Processor</key>
+			<string>FlatPkgUnpacker</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>info_path</key>
+				<string>%RECIPE_CACHE_DIR%/downloads/sentinelone/Plugins/TokenRegistration.bundle</string>
+			</dict>
+			<key>Processor</key>
+			<string>PlistReader</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>source_path</key>
+				<string>%pathname%.pkg</string>
+				<key>destination_path</key>
+				<string>%RECIPE_CACHE_DIR%/downloads/sentinelone-%version%.pkg</string>
+			</dict>
+			<key>Processor</key>
+			<string>Copier</string>
+		</dict>
+	</array>
+</dict>
+</plist>

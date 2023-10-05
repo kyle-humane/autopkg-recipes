@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Imports SentinelOne into Munki.
+		This recipe requires an Api Token and the hostname of your SentinelOne instance. 
+		Additionally, the site token is needed for installation.</string>
+	<key>Identifier</key>
+	<string>com.humane.it.munki.sentinelone</string>
+	<key>Input</key>
+	<dict>
+		<key>SentinelOne-Api-Token</key>
+		<string></string>
+		<key>SentinelOne-Hostname</key>
+		<string></string>
+		<key>SentinelOne-SiteToken</key>
+		<string></string>
+		<key>MUNKI_REPO_SUBDIR</key>
+		<string>apps/%NAME%</string>
+		<key>NAME</key>
+		<string>SentinelOne</string>
+		<key>pkginfo</key>
+		<dict>
+			<key>catalogs</key>
+			<array>
+				<string>testing</string>
+			</array>
+			<key>description</key>
+			<string>SentinelOne</string>
+			<key>developer</key>
+			<string>SentinelOne</string>
+			<key>display_name</key>
+			<string>SentinelOne</string>
+			<key>extract_icon</key>
+			<true/>
+			<key>name</key>
+			<string>%NAME%</string>
+			<key>preinstall_script</key>
+			<string>#!/bin/bash
+                echo "%SentinelOne-SiteToken%" &gt;&gt; /Library/Managed\ Installs/Cache/com.sentinelone.registration-token
+            </string>
+			<key>unattended_install</key>
+			<true/>
+		</dict>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.kyle-humane.download.SentinelOne</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_path</key>
+				<string>%RECIPE_CACHE_DIR%/downloads/sentinelone-%version%.pkg</string>
+				<key>repo_subdirectory</key>
+				<string>%MUNKI_REPO_SUBDIR%</string>
+			</dict>
+			<key>Processor</key>
+			<string>MunkiImporter</string>
+		</dict>
+	</array>
+</dict>
+</plist>
