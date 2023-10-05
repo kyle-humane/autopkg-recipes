@@ -9,9 +9,9 @@
 	<string>com.github.kyle-humane.download.SentinelOne</string>
 	<key>Input</key>
 	<dict>
-		<key>SentinelOne-Api-Token</key>
+		<key>SENTINELONE_API_TOKEN</key>
 		<string></string>
-		<key>SentinelOne-Hostname</key>
+		<key>SENTINELONE_HOSTNAME</key>
 		<string></string>
 	</dict>
 	<key>MinimumVersion</key>
@@ -24,11 +24,11 @@
 				<key>re_pattern</key>
 				<string>"link":"(.*?)"</string>
 				<key>url</key>
-				<string>https://%SentinelOne-Hostname%/web/api/v2.1/update/agent/packages?osTypes=macos&amp;sortBy=version&amp;platformTypes=macos&amp;fileExtension=.pkg&amp;countOnly=false&amp;sortOrder=desc&amp;limit=1</string>
+				<string>https://%SENTINELONE_HOSTNAME%/web/api/v2.1/update/agent/packages?osTypes=macos&amp;sortBy=version&amp;platformTypes=macos&amp;fileExtension=.pkg&amp;countOnly=false&amp;sortOrder=desc&amp;limit=1</string>
 				<key>request_headers</key>
 				<dict>
 					<key>Authorization</key>
-					<string>ApiToken %SentinelOne-Api-Token%</string>
+					<string>ApiToken %SENTINELONE_API_TOKEN%</string>
 				</dict>
 				<key>result_output_var_name</key>
 				<string>url</string>
@@ -44,7 +44,7 @@
 				<key>request_headers</key>
 				<dict>
 					<key>Authorization</key>
-					<string>ApiToken %SentinelOne-Api-Token%</string>
+					<string>ApiToken %SENTINELONE_API_TOKEN%</string>
 				</dict>
 			</dict>
 			<key>Processor</key>
