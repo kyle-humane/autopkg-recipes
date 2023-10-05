@@ -7,7 +7,7 @@
 		This recipe requires an Api Token and the hostname of your SentinelOne instance. 
 		Additionally, the site token is needed for installation.</string>
 	<key>Identifier</key>
-	<string>com.humane.it.munki.sentinelone</string>
+	<string>com.github.kyle-humane.munki.sentinelone</string>
 	<key>Input</key>
 	<dict>
 		<key>SentinelOne-Api-Token</key>
